@@ -8,7 +8,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include(routers.defaultRouter.urls)),
+    url(r'^rest-api/', include(routers.defaultRouter.urls)),
     url(r'^rest/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'', include('todolist.urls')),
 ]
