@@ -39,7 +39,6 @@ def validate_status_api(request):
         return HttpResponse('false')
 
 
-@login_required()
 def logout_api(request):
     logout(request)
     return HttpResponse('logged out')
@@ -49,11 +48,15 @@ def logout_api(request):
 def post_todo_api(request):
     body = request.POST
     timestamp = datetime.datetime.now() + datetime.timedelta(days=3)
+    priority = 0
     if 'timestamp' in body:
         timestamp = datetime.datetime.fromtimestamp(int(body['timestamp']))
+    if 'priority' in body:
+        priority = int(body['priority'])
     request.user.todo_set.create(title=body['title'],
                                  description=body['description'],
                                  status=0,
+                                 priority=priority,
                                  expiredDate=timestamp)
     return HttpResponse('true')
 

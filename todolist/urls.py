@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^todo/status', fixedApi.change_todo_status_api),
     url(r'^todo/del', fixedApi.del_todo_api),
     url(r'^todo/edit', fixedApi.edit_api),
-    url(r'^404', views.not_found),
-    url(r'^(?:index(?:.htm(?:l)?)?)?', views.index),
+    url(r'^page/login', views.login_page),
+    url(r'^index(?:.htm(?:l)?)?', views.index),
 ]

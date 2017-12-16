@@ -4,8 +4,9 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html', context={"test": "xxxxxxxxx"})
+    return render(request, 'index.html')
 
 
-def not_found(request):
-    return render(request, '404.html', context={})
+def login_page(request):
+    return render(request, 'login.html',
+                  context={"register": request.GET['register'] if 'register' in request.GET else 'false'})
