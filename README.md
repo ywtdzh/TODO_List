@@ -1,6 +1,6 @@
 #Todo List
 
-![Gif](https://github.com/ywtdzh/TODO_List/tree/master/Screenshots/2.png)
+![Gif](https://github.com/ywtdzh/TODO_List/tree/master/Screenshots/GIF.gif)
 
 ##Deployment script
 
