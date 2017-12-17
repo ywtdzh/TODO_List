@@ -1,8 +1,8 @@
-#Todo List
+# Todo List
 
 ![Gif](https://github.com/ywtdzh/TODO_List/tree/master/Screenshots/GIF.gif)
 
-##Deployment script
+## Deployment script
 
 [Create a python virtualenv]
 
@@ -15,7 +15,7 @@ python manage.py migrate
 
 **非DEBUG模式需要配置额外的静态服务器**
 
-##Functions
+## Functions
 
 * 增加一个待办事项
 * 删除一个待办事项
