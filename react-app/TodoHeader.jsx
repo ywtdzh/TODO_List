@@ -12,6 +12,7 @@ class TodoHeader extends Component{
                 <Navbar.Toggle/>
             </Navbar.Header>
             <TodoCollapse
+                altPageHandler={this.props.altPageHandler}
                 username={this.props.username}
                 isLoggedIn={this.props.isLoggedIn}/>
         </Navbar>);
@@ -23,8 +24,8 @@ class TodoCollapse extends Component {
         return (<Navbar.Collapse>
             {this.props.isLoggedIn ?
                 <Nav>
-                    <NavItem eventKey={1} href="#">创建</NavItem>
-                    <NavItem eventKey={2} href="#">查看</NavItem>
+                    <NavItem eventKey={1} href="#" onClick={()=>this.props.altPageHandler(0)}>创建</NavItem>
+                    <NavItem eventKey={2} href="#" onClick={()=>this.props.altPageHandler(1)}>查看</NavItem>
                 </Nav> : <Nav/>
             }
             {this.props.isLoggedIn ?

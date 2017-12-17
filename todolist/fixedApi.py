@@ -1,4 +1,6 @@
 import datetime
+import json
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -46,12 +48,12 @@ def logout_api(request):
 
 @login_required()
 def post_todo_api(request):
-    body = request.POST
+    body = json.loads(request.body)
     timestamp = datetime.datetime.now() + datetime.timedelta(days=3)
     priority = 0
-    if 'timestamp' in body:
+    if 'timestamp' in body and body['timestamp'] is not None:
         timestamp = datetime.datetime.fromtimestamp(int(body['timestamp']))
-    if 'priority' in body:
+    if 'priority' in body and body['priority'] is not None:
         priority = int(body['priority'])
     request.user.todo_set.create(title=body['title'],
                                  description=body['description'],
@@ -80,12 +82,13 @@ def del_todo_api(request):
 
 @login_required()
 def edit_api(request):
+    request.POST = json.loads(request.body)
     todo = request.user.todo_set.filter(id=int(request.POST['id']))
     if len(todo) == 0:
         return HttpResponse('id is not existed')
-    if 'title' in request.POST:
+    if 'title' in request.POST and request.POST['title'] is not None:
         todo[0].title = request.POST['title']
-    if 'description' in request.POST:
+    if 'description' in request.POST and request.POST['description'] is not None:
         todo[0].description = request.POST['description']
     todo[0].save()
     return HttpResponse('true')

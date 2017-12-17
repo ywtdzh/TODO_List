@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import api from '../api.js';
 import FieldInputGroup from './FieldInputGroup.jsx';
-import {ControlLabel, FormControl, FormGroup} from "react-bootstrap";
+import {Button, ControlLabel, FormControl, FormGroup, PageHeader} from "react-bootstrap";
 
 class TodoPostForm extends Component {
     constructor(props) {
@@ -14,15 +14,6 @@ class TodoPostForm extends Component {
         };
     }
 
-    initForm = () => {
-        this.setState({
-            title: '',
-            description: '',
-            priority: 0,
-            timestamp: 0
-        });
-    };
-
     changeHandler = (event) => {
         const target = event.target;
         const name = target.name;
@@ -32,14 +23,20 @@ class TodoPostForm extends Component {
         });
     };
 
-    postHandler = () => {
+    postHandler = (e) => {
+        e.preventDefault();
+        let page = this;
+        let timestamp = Date.parse(this.state.deadline);
+        timestamp = timestamp > Date.now() ?
+            timestamp : undefined;
+
         api.postTodo(
             this.state.title,
             this.state.description,
-            this.state.timestamp,
+            timestamp / 1000, //ms to s
             this.state.priority,
-            function (response) {
-                //todo
+            function () {
+                page.props.complete();
             }
         )
     };
@@ -47,6 +44,7 @@ class TodoPostForm extends Component {
     render() {
         return (
             <form>
+                <FormGroup><PageHeader> 创建待办事项 </PageHeader></FormGroup>
                 <FieldInputGroup
                     controlId={"title"}
                     label={"待办事项标题"}
@@ -63,12 +61,12 @@ class TodoPostForm extends Component {
                     placeholder={"请输入具体内容"}
                     onChange={this.changeHandler}
                 />
-                <FieldInputGroup //todo timestamp
-                    controlId={"title"}
-                    value={this.state.title}
-                    label={"待办事项标题"}
-                    type={"text"}
-                    placeholder={"请输入标题"}
+                <FieldInputGroup
+                    controlId={"deadline"}
+                    value={this.state.deadline}
+                    label={"截止日期"}
+                    type={"date"}
+                    placeholder={"请输入截止日期"}
                     onChange={this.changeHandler}
                 />
                 <FormGroup controlId="formControlsSelect">
@@ -83,6 +81,15 @@ class TodoPostForm extends Component {
                         <option value="2">严重</option>
                         <option value="3">紧迫</option>
                     </FormControl>
+                </FormGroup>
+                <FormGroup>
+                    <Button
+                        bsStyle={"info"}
+                        onClick={this.postHandler}
+                        block
+                    >
+                        提交
+                    </Button>
                 </FormGroup>
             </form>
         );
