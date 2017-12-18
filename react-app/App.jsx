@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import TodoHeader from "./TodoHeader.jsx";
 import api from './api.js';
 import TodoPostForm from './form/TodoPostForm.jsx';
-import {Col, Grid, PageHeader, Row} from "react-bootstrap";
+import {Col, Grid, Navbar, PageHeader, Row} from "react-bootstrap";
 import ListPage from './ListPage.jsx';
 import TodoEditor from "./TodoEditor.jsx";
+import {LoginForm, RegisterForm} from "./form/LoginForm.jsx";
 
 class App extends Component {
     constructor(props) {
@@ -85,7 +86,34 @@ class App extends Component {
     }
 }
 
+class LoginPage extends Component {
+    render() {
+        return (
+            <div>
+                <Navbar inverse collapseOnSelect>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <a href="#">TODO-List</a>
+                        </Navbar.Brand>
+                        <Navbar.Toggle/>
+                    </Navbar.Header>
+                </Navbar>
+                <Grid>
+                    <Row>
+                        <Col smOffset={2} sm={8}
+                             mdOffset={4} md={4}>
+                            {window.register ?
+                                <RegisterForm/> :
+                                <LoginForm/>}
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
+        );
+    }
+}
+
 render(
-    <App/>,
+    (window.page === "app" ? <App/> : <LoginPage/>),
     document.getElementById('root')
 );

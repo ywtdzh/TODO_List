@@ -2,8 +2,7 @@ let path = require('path');
 
 module.exports = {
     "entry": {
-        "app": "./react-app/App.jsx",
-        "login": "./react-app/Login.jsx"
+        "app": "./react-app/App.jsx"
     },
     "output": {
         "filename": "[name].js",
